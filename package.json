@@ -1,0 +1,30 @@
+{
+  "name": "koa-music-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoManReady/koa-music-be.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NoManReady/koa-music-be/issues"
+  },
+  "homepage": "https://github.com/NoManReady/koa-music-be#readme",
+  "dependencies": {
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "koa2": "^2.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "big-integer": "^1.6.23",
+    "koa-cors": "^0.0.16"
+  }
+}
