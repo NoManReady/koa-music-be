@@ -1,7 +1,6 @@
 const Router = require('koa-router')
 const fetch = require('../../utils/fetch')
 const result = require('../../utils/result')
-
 const router = new Router()
 // 获取歌单列表（popular:3778678,classical:71384707,light:26467411,radio:897089）
 router.get("/playlist", async (ctx) => {

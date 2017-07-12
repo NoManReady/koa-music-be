@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "big-integer": "^1.6.23",
-    "koa-cors": "^0.0.16"
+    "koa-cors": "^0.0.16",
+    "restc": "^0.1.0"
   }
 }
