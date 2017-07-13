@@ -3,6 +3,12 @@ const fetch = require('../../utils/fetch')
 const result = require('../../utils/result')
 const router = new Router()
 // 获取歌单列表（popular:3778678,classical:71384707,light:26467411,radio:897089）
+router.get("/banner", async (ctx) => {
+  let _list = await fetch(`/api/v2/banner/get`, 'GET', null)
+  ctx.body = JSON.parse(_list)
+})
+
+// 获取歌单列表（popular:3778678,classical:71384707,light:26467411,radio:897089）
 router.get("/playlist", async (ctx) => {
   let _id = ctx.query.id || 3778678
   let _list = await fetch(`/api/playlist/detail?id=${_id}`, 'GET', null)
