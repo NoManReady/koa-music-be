@@ -10,16 +10,14 @@ function fetch(path, method, data = {}, isEasy = false) {
       method: method,
       path: path,
       headers: {
-        'X-Real-IP': '211.161.244.70',
         'Accept': '*/*',
         'Accept-Language': 'zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4',
         'Connection': 'keep-alive',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Referer': 'http://music.163.com',
         'Host': 'music.163.com',
-        'Cookie': 'appver=2.0.2',
+        'Cookie': '',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36',
-
       },
     }, function (res) {
       res.on('error', function (err) {
@@ -51,4 +49,33 @@ function fetch(path, method, data = {}, isEasy = false) {
     http_client.end()
   })
 }
-module.exports = fetch
+const easyRequest = (path) => {
+  return new Promise((resolve, reject) => {
+    let ne_req = ''
+    const http_client = http.request({
+      hostname: 'hzzly.net:3000',
+      method: 'GET',
+      path: path,
+      headers: {
+        'Referer': 'http://hzzly.net:3000',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }, res => {
+      res.setEncoding('utf8')
+      res.on('error', err => {
+        reject(err)
+      })
+      res.on('data', chunk => {
+        ne_req += chunk
+      })
+      res.on('end', () => {
+        resolve(ne_req)
+      })
+    })
+    http_client.end()
+  })
+}
+module.exports = {
+  fetch,
+  easyRequest
+}

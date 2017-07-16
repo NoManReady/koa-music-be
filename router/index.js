@@ -5,15 +5,20 @@ const api = require('./api')
 const view = require('./view')
 async function getUrl(ctx, next) {
   let _host = ctx.get('host')
-  if (!_host.includes('localhost')) {
-    ctx.body = '401'
-    ctx.status = 401
-  } else {
-    await next()
-  }
+  // if (!_host.includes('localhost')) {
+  //   ctx.body = '401'
+  //   ctx.status = 401
+  // } else {
+  //   await next()
+  // }
+  await next()
 }
 async function logTime(ctx, next) {
   let _begin = Date.now()
+  ctx.set('Access-Control-Allow-Credentials', true)
+  ctx.set('Access-Control-Allow-Headers', 'X-Requested-With')
+  ctx.set('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  ctx.set('Access-Control-Allow-Origin', '*')
   await next()
   let _range = Date.now() - _begin
   ctx.set('X-Response-Time', _range)

@@ -1,7 +1,14 @@
 const Router = require('koa-router')
-const fetch = require('../../utils/fetch')
+const { fetch, easyRequest, } = require('../../utils/fetch')
 const result = require('../../utils/result')
 const router = new Router()
+let fs = require('fs')
+let path = require('path')
+let setStorage = require('../../musics')
+const read = (p) => {
+  let _data = fs.readFileSync(path.join(__dirname, p), { encoding: 'utf-8' })
+  return _data
+}
 // 获取歌单列表（popular:3778678,classical:71384707,light:26467411,radio:897089）
 router.get("/banner", async (ctx) => {
   let _list = await fetch(`/api/v2/banner/get`, 'GET', null)
@@ -10,28 +17,34 @@ router.get("/banner", async (ctx) => {
 
 // 获取歌单列表（popular:3778678,classical:71384707,light:26467411,radio:897089）
 router.get("/playlist", async (ctx) => {
-  let _id = ctx.query.id || 3778678
+  let _id = ctx.query.id
   let _list = await fetch(`/api/playlist/detail?id=${_id}`, 'GET', null)
-  ctx.body = JSON.parse(_list)
+  // let _list = read('../../music.json')
+  let _result = JSON.parse(_list)
+  setStorage(_result)
+  ctx.body = _result
 })
 
 // 获取歌词
 router.get("/lyric", async (ctx) => {
-  let _id = ctx.query.id || 439915614
-  let _lyric = await fetch(`/api/song/lyric?os=osx&id=${_id}&lv=-1&kv=-1&tv=-1`, 'GET', null)
+  let _id = ctx.query.id
+  // let _lyric = await fetch(`/api/song/lyric?os=osx&id=${_id}&lv=-1&kv=-1&tv=-1`, 'GET', null)
+  let _lyric = read(`../../lyric/${_id}.json`)
   ctx.body = JSON.parse(_lyric)
 })
 
 // 获取音乐
 router.get("/music", async (ctx) => {
-  let _id = ctx.query.id || 484730895
-  let _br = ctx.query.br || 999000
-  let _data = {
-    'ids': [_id],
-    'br': _br,
-    'csrf_token': ''
-  }
-  let _music = await fetch(`/weapi/song/enhance/player/url`, 'POST', _data)
+  let _id = ctx.query.id
+  // let _br = 999000
+  // let _data = {
+  //   'ids': [_id],
+  //   'br': _br,
+  //   'csrf_token': ''
+  // }
+  // // let _music = await fetch(`/weapi/song/enhance/player/url`, 'POST', _data, null)
+  // let _music = JSON.stringify({ "data": [{ "id": 28285910, "url": "http://m10.music.126.net/20170713145025/512aa61a4d065d340005026a07105a8e/ymusic/10ad/ecdc/b6e0/1db87400ccb4d86ece611f5a17d72948.mp3", "br": 192000, "size": 3890826, "md5": "1db87400ccb4d86ece611f5a17d72948", "code": 200, "expi": 1200, "type": "mp3", "gain": 0.0363, "fee": 0, "uf": null, "payed": 0, "flag": 2, "canExtend": false }], "code": 200 })
+  let _music = read(`../../music/${_id}.json`)
   ctx.body = JSON.parse(_music)
 })
 
