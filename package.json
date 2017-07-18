@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "big-integer": "^1.6.23",
+    "fnv-plus": "^1.2.12",
     "koa-cors": "^0.0.16",
     "request": "^2.81.0",
     "restc": "^0.1.0"

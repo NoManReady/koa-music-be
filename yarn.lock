@@ -170,6 +170,12 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/extsprintf/download/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
+fnv-plus@^1.2.12:
+  version "1.2.12"
+  resolved "http://registry.npm.taobao.org/fnv-plus/download/fnv-plus-1.2.12.tgz#00752fc2d80761bacda9bfb9ea098f44cb3746be"
+  dependencies:
+    jsbn "~0.0.0"
+
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/forever-agent/download/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
@@ -275,6 +281,10 @@ isarray@0.0.1:
 isstream@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
+
+jsbn@~0.0.0:
+  version "0.0.0"
+  resolved "http://registry.npm.taobao.org/jsbn/download/jsbn-0.0.0.tgz#c52701bdcedbdf7084e1cfc701a7f86464ad7828"
 
 jsbn@~0.1.0:
   version "0.1.1"
@@ -468,11 +478,7 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/punycode/download/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-qs@^6.4.0:
-  version "6.5.0"
-  resolved "http://registry.npm.taobao.org/qs/download/qs-6.5.0.tgz#8d04954d364def3efc55b5a0793e1e2c8b1e6e49"
-
-qs@~6.4.0:
+qs@^6.4.0, qs@~6.4.0:
   version "6.4.0"
   resolved "http://registry.npm.taobao.org/qs/download/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 

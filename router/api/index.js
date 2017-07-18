@@ -4,6 +4,8 @@ const result = require('../../utils/result')
 const router = new Router()
 let fs = require('fs')
 let path = require('path')
+let http = require('http')
+let fnv = require('fnv-plus')
 let setStorage = require('../../musics')
 const read = (p) => {
   let _data = fs.readFileSync(path.join(__dirname, p), { encoding: 'utf-8' })
@@ -48,6 +50,30 @@ router.get("/music", async (ctx) => {
   ctx.body = JSON.parse(_music)
 })
 
+function originFile(url) {
+  return new Promise(r => {
+    http.get(url, (response) => {
+      response.setEncoding('binary')
+      var type = response.headers["content-type"]
+      var buffer = ''
+      response.on('data', function (data) {
+        buffer += data
+      }).on('end', function () {
+        r([buffer, type])
+      })
+    })
+  })
+}
+
+// router.get('/buffer', async ctx => {
+//   let _url = ctx.query.url
+//   let _result = fs.readFileSync(path.join(__dirname, '../../mp3/test.mp3'), { encoding: 'binary' })
+//   // ctx.set('Content-Type', _result[1])
+//   ctx.type = 'binary'
+//   ctx.body = _result
+// })
+
+
 // 搜索歌曲
 router.get("/search", async (ctx) => {
   let _keywords = ctx.query.keywords
@@ -88,6 +114,25 @@ router.get("/rank", async (ctx) => {
   let _type = ctx.query.type || 17
   let _lyric = await fetch(`${top_list_all[_type][1]}`, 'GET', null)
   ctx.body = JSON.parse(_lyric)
+})
+
+
+router.get('/canvasList', async ctx => {
+  let _files = fs.readdirSync(path.join(__dirname, '../../static'))
+  _files = _files.filter(f => {
+    return f.indexOf('.') === -1 || f.indexOf('.') > 0
+  })
+  ctx.body = {
+    list: _files.map(f => {
+      let b = new Buffer(f)
+      return { name: f, id: b.toString('hex') }
+    })
+  }
+})
+router.get('/canvas/:id', async ctx => {
+  let _id = ctx.params.id
+  let _name = new Buffer(_id, 'hex')
+  ctx.body = fs.readFileSync(path.join(__dirname, `../../static/${_name.toString('utf8')}`))
 })
 
 

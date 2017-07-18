@@ -15,10 +15,6 @@ async function getUrl(ctx, next) {
 }
 async function logTime(ctx, next) {
   let _begin = Date.now()
-  ctx.set('Access-Control-Allow-Credentials', true)
-  ctx.set('Access-Control-Allow-Headers', 'X-Requested-With')
-  ctx.set('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
-  ctx.set('Access-Control-Allow-Origin', '*')
   await next()
   let _range = Date.now() - _begin
   ctx.set('X-Response-Time', _range)
